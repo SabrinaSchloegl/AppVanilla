@@ -45,9 +45,9 @@ let now = new Date();
 
 formatDate(now);
 
-// my wrong initial code
+//my wrong initial code
 //function showTemperature(response) {
-// let temperature = Math.round(response.data.main.temp);
+//let temperature = Math.round(response.data.main.temp);
 //console.log(temperature);
 //console.log(response);
 //let city = response.data.name;
@@ -61,6 +61,9 @@ console.log(response.data);
 let weatherDiv = document.querySelector("#weather");
 let iconElement = document.querySelector("#icon");
 let temperature = Math.round(response.data.main.temp);
+let descriptionElement = document.querySelector("#description");
+let dateElement = document.querySelector("#date");
+
 let windElement = document.querySelector("#wind");
 let humidityElement = document.querySelector("#humidity");
 let city = response.data.name;
@@ -69,7 +72,16 @@ let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${temperature.va
   console.log(apiUrl);
   console.log(temperature);
   console.log(response.data.name);
-iconElement.setAttribute("src",`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+
+  celsiusTemperature = response.data.main.temp;
+
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
+  cityElement.innerHTML = response.data.name;
+  descriptionElement.innerHTML = response.data.weather[0].description;
+  humidityElement.innerHTML = response.data.main.humidity;
+  windElement.innerHTML = Math.round(response.data.wind.speed);
+  dateElement.innerHTML = formatDate(response.data.dt * 1000);
+  iconElement.setAttribute("src",`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
 iconElement.setAttribute("alt", response.data.weather[0].description);
   
 weatherDiv.innerHTML = `It is ${temperature} degrees in ${city}`;
